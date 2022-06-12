@@ -1,12 +1,10 @@
 import React from 'react'
-import LogoBox from "../components/Logo/LogoBox";
-import SearchBox from "../components/Box/SearchBox";
-import AccountMenu from "../components/Menu/AccountMenu";
-import AboutProfileContainer from "../components/About/AboutProfileContainer";
-import AboutPostContainer from "../components/About/AboutPostContainer";
+import LogoBox from "../../components/Logo/LogoBox";
+import SearchBox from "../../components/Box/SearchBox";
+import AccountMenu from "../../components/Menu/AccountMenu";
+import PostNewForm from "../../components/Form/PostNewForm";
 
-
-function About() {
+export default function NewPost() {
 
     return (
         <div className="app">
@@ -23,12 +21,12 @@ function About() {
                 </div>
             </div>
             {/* End Header */}
-            <div>
-                <AboutProfileContainer />
-                <AboutPostContainer/>
+
+            <div className="post_form">
+                <PostNewForm />
             </div>
+
+
         </div>
     )
 }
-
-export default About

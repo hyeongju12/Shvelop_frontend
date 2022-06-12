@@ -1,8 +1,9 @@
 import React from 'react'
+import AppLayout from "../components/AppLayout";
 
 function Home() {
     return (
-        <div>Home 컴포넌트</div>
+        <AppLayout/>
     )
 }
 

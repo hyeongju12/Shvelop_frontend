@@ -1,55 +1,45 @@
-import React from 'react'
-import {useEffect, useState} from "react";
-import {useHistory, useLocation} from "react-router-dom";
+import React, {useEffect, useState} from 'react'
+import './Signup.scss'
+import {useHistory} from "react-router-dom";
 import LogoBox from "../../components/Logo/LogoBox";
 import SearchBox from "../../components/Box/SearchBox";
 import AccountMenu from "../../components/Menu/AccountMenu";
-import {InputAdornment, Link, Paper, Stack, TextField} from "@mui/material";
-import {AccountCircle} from "@mui/icons-material";
-import PasswordIcon from "@mui/icons-material/Password";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import {setToken, useAppContext} from "store";
+import {InputAdornment, Link, Paper, Stack, TextField} from "@mui/material";
+import Button from "@mui/material/Button";
+import {AccountCircle} from "@mui/icons-material";
+import PasswordIcon from '@mui/icons-material/Password';
+import EmailIcon from '@mui/icons-material/Email';
 import {axiosInstance} from "api";
 
-
-export default function Login() {
-    const {dispatch} = useAppContext()
-    const location = useLocation();
-    const history = useHistory();
-    const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState({});
-    const [loading, setLoading] = useState(false);
+export default function Signup() {
+    const [inputs, setInputs] = useState({username: '', password: '', email: ''})
+    const [errors, setErrors] = useState({})
     const [formDisabled, setFormDisabled] = useState(false)
-
-    const {from: loginRedirectUrl} = location.state || {
-        from: {pathname : "/"}
-    }
+    const [loading, setLoading] = useState(false)
+    const history = useHistory();
 
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log()
+
         setErrors({});
-        axiosInstance.post("/accounts/token/", inputs)
+
+        axiosInstance.post("/accounts/signup/", {inputs})
             .then(response => {
-                const {
-                    data : {
-                        token: jwtToken,
-                    }
-                } = response
-                dispatch(setToken(jwtToken))
-                history.push(loginRedirectUrl)
-            })
+                    history.push('/accounts/login/')
+                    console.log(response['status'])
+                },
+            )
             .catch(error => {
                 if (error.response) {
                     setErrors({
                         username: (error.response.data.username || []).join(""),
                         password: (error.response.data.password || []).join(""),
+                        email: (error.response.data.email || []).join("")
                     });
-                    console.log('데이터 수신불가')
                     console.log(error.response)
-                    history.go()
                 }
+                history.go()
             })
             .finally(() => {
                 setLoading(true)
@@ -89,7 +79,7 @@ export default function Login() {
             <div className="signup">
                 <Paper
                     sx={{
-                        height: '600px',
+                        height: '100%',
                         width: '56%',
                         marginLeft: 28,
                         alignItems: 'center'
@@ -97,12 +87,11 @@ export default function Login() {
                     elevation={9}
                 >
                     <form onSubmit={onSubmit}>
-                        <Stack alignItems={'center'} margin={10} spacing={3} >
+                        <Stack alignItems={'center'} margin={10} spacing={5} >
                             <TextField
                                 id="outlined-username-input"
                                 label="Username"
                                 type="username"
-                                autoComplete="current-username"
                                 name="username"
                                 onChange={onChange}
                                 sx={{ m: 1, width: '50ch' }}
@@ -119,7 +108,6 @@ export default function Login() {
                                 id="outlined-password-input"
                                 label="Password"
                                 type="password"
-                                autoComplete="current-password"
                                 name="password"
                                 onChange={onChange}
                                 sx={{ m: 1, width: '50ch' }}
@@ -132,20 +120,29 @@ export default function Login() {
                                 }}
                             />
                             {errors.password}
+                            <TextField
+                                id="outlined-email-input"
+                                label="Email"
+                                type="email"
+                                // autoComplete="current-email"
+                                name="email"
+                                onChange={onChange}
+                                sx={{ m: 1, width: '50ch' }}
+                                InputProps={{
+                                    startAdornment : (
+                                        <InputAdornment position="start">
+                                            <EmailIcon />
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
+                            {errors.email}
                             <Button
                                 type="submit"
-                                value="로그인"
+                                value="회원가입"
                                 disabled={loading || formDisabled}
                                 variant="contained"
-                                fullWidth
-                            >
-                                Login
-                            </Button>
-                            <Button
-                                href="/accounts/signup/"
-                                value="회원가입"
-                                variant="contained"
-                                fullWidth
+                                size="large"
                             >
                                 Sign Up
                             </Button>
@@ -153,7 +150,6 @@ export default function Login() {
                     </form>
                 </Paper>
             </div>
-
 
             <div className="footer">
                 <Typography component="p" align="center">
@@ -166,5 +162,6 @@ export default function Login() {
                 </Typography>
             </div>
         </div>
-    )
+    );
 }
+
