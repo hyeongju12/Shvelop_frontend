@@ -116,7 +116,7 @@ export default function ProfileEditBox() {
         console.log(newPassword)
         axiosInstance.put("/accounts/change/", formData, {headers})
             .then(response => {
-                history.go()
+                history.go('/')
             })
             .catch(error => {
 

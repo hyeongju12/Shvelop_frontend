@@ -25,7 +25,7 @@ export default function PostCoverImageEditBox({post}) {
         let editFormData = new FormData();
         editFormData.append("cover_img", coverImage)
 
-        axiosInstance.patch(`/api/set/${post.id}/edit/`, editFormData, {headers})
+        axiosInstance.patch(`/api/user/posts/${post.id}/edit/`, editFormData, {headers})
             .then(response => {
                 history.go()
                 console.log(response)

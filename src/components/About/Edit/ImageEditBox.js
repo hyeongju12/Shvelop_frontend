@@ -44,7 +44,7 @@ export default function ImageEditBox() {
 
         axiosInstance.patch("/accounts/user/", formData, {headers})
             .then(response => {
-                history.push('/')
+                history.go()
                 console.log(response['status'])
             })
             .catch(error => {

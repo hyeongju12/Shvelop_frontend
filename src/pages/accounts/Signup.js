@@ -24,7 +24,7 @@ export default function Signup() {
 
         setErrors({});
 
-        axiosInstance.post("/accounts/signup/", {inputs})
+        axiosInstance.post("/accounts/signup/", inputs)
             .then(response => {
                     history.push('/accounts/login/')
                     console.log(response['status'])
@@ -164,4 +164,3 @@ export default function Signup() {
         </div>
     );
 }
-

@@ -11,7 +11,7 @@ export default function UserPostList() {
     const [userPostList, setUserPostList] = useState([])
     const {store: {jwtToken}} = useAppContext()
     const headers = {Authorization: `JWT ${jwtToken}`}
-    const apiUrl = "/api/set/"
+    const apiUrl = "/api/user/posts/"
     const [{data : Posts, loading, error}] = useAxios({
         url: apiUrl,
         headers,

@@ -34,7 +34,7 @@ export default function PostTextEditBox({post}) {
         editFormData.append("title", title)
         editFormData.append("category", category)
         editFormData.append("content", content)
-        axiosInstance.patch(`/api/set/${post.id}/edit/`, editFormData, {headers})
+        axiosInstance.patch(`/api/user/posts/${post.id}/edit/`, editFormData, {headers})
             .then(response => {
                 history.go()
                 console.log(response)

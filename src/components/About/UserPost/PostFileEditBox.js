@@ -23,7 +23,7 @@ export default function PostFileEditBox({post}) {
         let editFormData = new FormData();
         editFormData.append("attached_file", attachedFile)
         console.log('formData :', editFormData)
-        axiosInstance.patch(`/api/set/${post.id}/edit/`, editFormData, {headers})
+        axiosInstance.patch(`/api/user/posts/${post.id}/edit/`, editFormData, {headers})
             .then(response => {
                 history.go()
                 console.log(response)

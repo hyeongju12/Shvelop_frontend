@@ -27,7 +27,7 @@ export default function AddUserItem({userDataList, onFollowUser, unFollowUser}) 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const {username, avatar_url, is_follow, profile} = userDataList
+    const {username, avatar_url, is_follow, profile, email} = userDataList
 
 
     return (
@@ -64,11 +64,11 @@ export default function AddUserItem({userDataList, onFollowUser, unFollowUser}) 
                                             ID : {username}
                                         </Typography>
                                         <Typography id="modal-modal-title" variant="body2" component="h6">
-                                            email : {profile.company_email}
+                                            email : {email}
                                         </Typography>
                                         <Typography id="modal-modal-description" variant="body2" sx={{ mt: 2 }}>
                                             자기소개 <br/>
-                                            {profile.skill_set}
+                                            Skill : {profile.skill_set}
                                         </Typography>
                                     </Grid>
                                 </Grid>

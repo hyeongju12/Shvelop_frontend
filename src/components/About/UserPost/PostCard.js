@@ -20,7 +20,7 @@ export default function UserPostCard({post}) {
 
     /////////////////////////////////////////////////////////////////////////////
     const onHandleDelete = (e) => {
-        axiosInstance.delete(`/api/set/${post.id}/delete/`, {headers})
+        axiosInstance.delete(`/api/user/posts/${post.id}/delete/`, {headers})
             .then(response => {
                 history.go()
 
